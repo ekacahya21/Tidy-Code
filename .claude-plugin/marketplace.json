@@ -1,16 +1,14 @@
 {
   "name": "legacy-housekeeping-marketplace",
   "description": "Marketplace for the Legacy Housekeeping skill plugin",
-  "owner": {"name": "Nanang"},
+  "owner": {
+    "name": "Nanang"
+  },
   "plugins": [
     {
       "name": "legacy-housekeeping",
-      "description": "Legacy API housekeeping and refactoring skill",
-      "source": {
-        "type": "github",
-        "repo": "ekacahya21/Legacy-Housekeeping",
-        "path": ""
-      }
+      "source": "./",
+      "description": "Legacy API housekeeping and refactoring skill"
     }
   ]
 }
