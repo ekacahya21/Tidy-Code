@@ -5,15 +5,33 @@ A reusable, language-agnostic skillset for Claude to audit, clean, and refactor 
 ## Contents
 
 * `HOUSEKEEPING_CHECKLIST.md` - The original Node.js specific checklist that started it all.
-* `.claude/skills/run-legacy-housekeeping/SKILL.md` - The generalized, language/framework-agnostic skill instructing Claude on how to approach refactoring and auditing dead code.
-* `.claude/skills/run-legacy-housekeeping/driver.sh` - An executable CLI tool to automatically inventory endpoints, check usages against frontend code, identify leaking HTTP concerns in your model layer, and more (supports JS/TS, Python, Java, Go, Ruby).
+* `skills/run-legacy-housekeeping/SKILL.md` - The generalized, language/framework-agnostic skill instructing Claude on how to approach refactoring and auditing dead code.
+* `bin/driver.sh` - An executable CLI tool to automatically inventory endpoints, check usages against frontend code, identify leaking HTTP concerns in your model layer, and more (supports JS/TS, Python, Java, Go, Ruby).
+
+## Installation
+
+You can install this repository directly as a Claude Code plugin:
+
+```shell
+/plugin install legacy-housekeeping@https://github.com/ekacahya21/Legacy-Housekeeping.git
+```
+
+Alternatively, you can register it as a marketplace:
+
+```shell
+/plugin marketplace add https://github.com/ekacahya21/Legacy-Housekeeping.git
+/plugin install legacy-housekeeping@legacy-housekeeping-marketplace
+```
 
 ## Usage for Claude users
 
-If you have Claude Code, you can pull this skill directly into your projects to enforce a standard legacy code refactoring pattern. By putting the `.claude/skills/` directory in your repo root, Claude will automatically pick up the `/run-legacy-housekeeping` command.
+Once installed, the `/legacy-housekeeping:run-legacy-housekeeping` skill command becomes available. You can run it inside any repository to trigger the housekeeping flow:
 
-1. Drop the `.claude` folder into the root of any repository.
-2. Ask Claude Code: `/run-legacy-housekeeping` or "Please audit this codebase using the legacy housekeeping skill".
+```shell
+/legacy-housekeeping:run-legacy-housekeeping
+```
+
+Or simply ask Claude Code: "Please audit this codebase using the legacy housekeeping skill".
 
 ## Features
 

@@ -5,7 +5,7 @@ description: Use when asked to clean up, audit, or refactor a legacy backend API
 
 # Legacy API Housekeeping & Refactoring
 
-A reusable, language-agnostic checklist to audit, clean, and refactor a legacy microservice or backend API. Drive the audit via `.claude/skills/run-legacy-housekeeping/driver.sh` and follow the patterns below.
+A reusable, language-agnostic checklist to audit, clean, and refactor a legacy microservice or backend API. Drive the audit via `driver.sh` (available on `$PATH`) and follow the patterns below.
 
 All paths in this skill are relative to the **service repo root** (the project being audited).
 
@@ -31,7 +31,7 @@ sudo apt-get install -y default-jdk
 
 ```bash
 # Run the audit driver to inventory all endpoints, controllers, and models:
-.claude/skills/run-legacy-housekeeping/driver.sh inventory ./src
+driver.sh inventory ./src
 # Replace ./src with the path to your source code
 ```
 
@@ -48,7 +48,7 @@ Run each section below **in order**. Every claim ("this endpoint is dead", "this
 Use the driver to find all HTTP method definitions:
 
 ```bash
-.claude/skills/run-legacy-housekeeping/driver.sh endpoints ./src
+driver.sh endpoints ./src
 ```
 
 This produces a list of every endpoint and the file it lives in.
