@@ -7,8 +7,11 @@
   "plugins": [
     {
       "name": "legacy-housekeeping",
-      "source": "./",
-      "description": "Legacy API housekeeping and refactoring skill"
+      "description": "Legacy API housekeeping and refactoring skill",
+      "source": {
+        "source": "github",
+        "repo": "ekacahya21/Legacy-Housekeeping"
+      }
     }
   ]
 }
