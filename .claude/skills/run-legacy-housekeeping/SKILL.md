@@ -64,7 +64,7 @@ For each endpoint, check two things:
 grep -R "<service-name>" /path/to/gateway/config*
 ```
 
-Identify the gateway prefix (e.g., `webform-read/`, `izin-api/`).
+Identify the gateway prefix (e.g., `prefix1/`, `prefix2/`).
 
 **B. Frontend / Clients:** Search all consumer repos for each endpoint name or path:
 
@@ -327,7 +327,7 @@ Create `api_review.md` in the repo root to track endpoint-by-endpoint status:
 
 - **Response shape changes are invisible to you but break the frontend.** A model that returns `{ status, data, flag_rkl_rpl, keterangan }` has extra keys the frontend depends on. Changing to just `{ status, data }` breaks them. Always verify.
 - **"Remove dead endpoints" means removing 3 layers** — route, controller, model. Miss one and the code lingers.
-- **API gateway prefix matters.** An endpoint at `/users/export` that the frontend calls as `legacy-api/users/export` but the gateway routes `webform-read/users/export` to this service — the frontend endpoint IS dead even though the code path exists.
+- **API gateway prefix matters.** An endpoint at `/users/export` that the frontend calls as `legacy-api/users/export` but the gateway routes `prefix/users/export` to this service — the frontend endpoint IS dead even though the code path exists.
 - **Don't run one-shot search-replace on model files.** The model layer accumulates the most tacit knowledge about response shapes. Trace each one manually.
 
 ## Troubleshooting
