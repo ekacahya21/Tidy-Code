@@ -1,6 +1,8 @@
-# Backend API Housekeeping
+# Tidy Code
 
 A reusable, language-agnostic skillset for Claude to audit, clean, and refactor a microservice or backend API. Derived from a battle-tested housekeeping checklist.
+
+Extensible by design — the same patterns can be applied to frontend codebases as well.
 
 ## Contents
 
@@ -14,23 +16,23 @@ A reusable, language-agnostic skillset for Claude to audit, clean, and refactor 
 You can install this repository directly as a Claude Code plugin:
 
 ```shell
-/plugin install legacy-housekeeping@https://github.com/ekacahya21/Legacy-Housekeeping.git
+/plugin install tidy-code@https://github.com/ekacahya21/Legacy-Housekeeping.git
 ```
 
 Alternatively, you can register it as a marketplace:
 
 ```shell
 /plugin marketplace add https://github.com/ekacahya21/Legacy-Housekeeping.git
-/plugin install legacy-housekeeping@legacy-housekeeping-marketplace
+/plugin install tidy-code@tidy-code-marketplace
 ```
 
 ## Usage for Claude users
 
-Once installed, the skills become available. You can run them inside any repository to trigger the housekeeping flow:
+Once installed, the skills become available. You can run them inside any repository:
 
 ```shell
-/legacy-housekeeping:audit-api
-/legacy-housekeeping:refactor-api
+/tidy-code:audit-api
+/tidy-code:refactor-api
 ```
 
 Or simply ask Claude Code: 

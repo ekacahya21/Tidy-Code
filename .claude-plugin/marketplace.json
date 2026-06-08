@@ -1,13 +1,13 @@
 {
-  "name": "legacy-housekeeping-marketplace",
-  "description": "Marketplace for the Legacy Housekeeping skill plugin",
+  "name": "tidy-code-marketplace",
+  "description": "Marketplace for the Tidy Code skill plugin",
   "owner": {
     "name": "Nanang"
   },
   "plugins": [
     {
-      "name": "legacy-housekeeping",
-      "description": "Legacy API housekeeping and refactoring skill",
+      "name": "tidy-code",
+      "description": "Code housekeeping and refactoring skill",
       "source": {
         "source": "github",
         "repo": "ekacahya21/Legacy-Housekeeping"
