@@ -1,11 +1,12 @@
-# Legacy API Housekeeping
+# Backend API Housekeeping
 
-A reusable, language-agnostic skillset for Claude to audit, clean, and refactor a legacy microservice or backend API. Derived from a battle-tested housekeeping checklist.
+A reusable, language-agnostic skillset for Claude to audit, clean, and refactor a microservice or backend API. Derived from a battle-tested housekeeping checklist.
 
 ## Contents
 
 * `HOUSEKEEPING_CHECKLIST.md` - The original Node.js specific checklist that started it all.
-* `skills/run-legacy-housekeeping/SKILL.md` - The generalized, language/framework-agnostic skill instructing Claude on how to approach refactoring and auditing dead code.
+* `skills/audit-api/SKILL.md` - Skill for auditing codebases, finding dead code, and analyzing endpoint usage.
+* `skills/refactor-api/SKILL.md` - Skill for cleaning code, standardizing error handling, and eliminating duplication.
 * `bin/driver.sh` - An executable CLI tool to automatically inventory endpoints, check usages against frontend code, identify leaking HTTP concerns in your model layer, and more (supports JS/TS, Python, Java, Go, Ruby).
 
 ## Installation
@@ -25,18 +26,21 @@ Alternatively, you can register it as a marketplace:
 
 ## Usage for Claude users
 
-Once installed, the `/legacy-housekeeping:run-legacy-housekeeping` skill command becomes available. You can run it inside any repository to trigger the housekeeping flow:
+Once installed, the skills become available. You can run them inside any repository to trigger the housekeeping flow:
 
 ```shell
-/legacy-housekeeping:run-legacy-housekeeping
+/legacy-housekeeping:audit-api
+/legacy-housekeeping:refactor-api
 ```
 
-Or simply ask Claude Code: "Please audit this codebase using the legacy housekeeping skill".
+Or simply ask Claude Code: 
+- "Please audit this codebase using the audit-api skill".
+- "Review this PR using the refactor-api skill to ensure it follows our clean code standards."
 
 ## Features
 
-- **Endpoint Audit**: Inventory routes across all files and cross-reference them with frontend/clients to verify actual usage. YAGNI-driven approach.
-- **Error Standardization**: Patterns for creating controller wrappers to enforce consistent try/catch patterns and standard `sendSuccess`/`sendError` formats.
-- **De-duplication**: Strategy for consolidating combinatorial conditional queries.
-- **Utility Extraction**: Identifies and extracts repeated outputs (e.g. Excel export) to shared libraries.
-- **Model decoupling**: Helps identify models that accept `(req, res)` directly, decoupling them to return data so controllers can own the HTTP response lifecycle.
+- **Endpoint Audit** (`audit-api`): Inventory routes across all files and cross-reference them with frontend/clients to verify actual usage. YAGNI-driven approach.
+- **Error Standardization** (`refactor-api`): Patterns for creating controller wrappers to enforce consistent try/catch patterns and standard `sendSuccess`/`sendError` formats.
+- **De-duplication** (`refactor-api`): Strategy for consolidating combinatorial conditional queries.
+- **Utility Extraction** (`refactor-api`): Identifies and extracts repeated outputs (e.g. Excel export) to shared libraries.
+- **Model decoupling** (`refactor-api`): Helps identify models that accept `(req, res)` directly, decoupling them to return data so controllers can own the HTTP response lifecycle.

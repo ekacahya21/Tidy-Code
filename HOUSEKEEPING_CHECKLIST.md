@@ -1,6 +1,12 @@
 # Backend API Housekeeping & Refactoring Checklist
 
-> A reusable guide to audit, clean, and refactor a legacy microservice. Derived from cleanup work on `back-pemrosesan-read`.
+> A reusable guide to audit, clean, and refactor a microservice. Derived from cleanup work on `back-pemrosesan-read`.
+
+> **ℹ️ The original run-legacy-housekeeping skill has been split into two independent subskills:**
+> - **`audit-api`** — Inventory, endpoint audit, dead code detection, YAGNI framework
+> - **`refactor-api`** — Error standardization, de-duplication, utility extraction
+>
+> Use them individually as needed depending on your current phase.
 
 ## 1. Endpoint Audit (Dead Code Removal)
 
