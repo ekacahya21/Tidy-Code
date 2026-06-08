@@ -150,8 +150,9 @@ Before touching any endpoint, ask these questions **in order**:
 - [ ] No database schema change introduced
 - [ ] No authentication/authorization behavior change introduced
 - [ ] Build and tests pass
+- [ ] Test coverage compliance is met (new/modified files meet target coverage, no coverage regressions)
 
-> **🔄 Circular reference:** Cleanup items can be escalated to the `refactor-api` skill for implementation. Safety items must be verified before any merge.
+> **🔄 Circular reference:** Cleanup items can be escalated to the `refactor-api` skill for implementation. Safety and test coverage items must be verified before any merge.
 
 ---
 
