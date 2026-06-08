@@ -1,6 +1,6 @@
 # Backend API Housekeeping & Refactoring Checklist
 
-> A reusable guide to audit, clean, and refactor a microservice. Derived from cleanup work on `back-pemrosesan-read`.
+> A reusable guide to audit, clean, and refactor a microservice. Derived from cleanup work on legacy backend systems.
 
 > **ℹ️ Now part of the `/tidy-code` plugin as two independent subskills:**
 > - **`audit-api`** — Inventory, endpoint audit, dead code detection, YAGNI framework
@@ -24,21 +24,21 @@ For each endpoint, check the API gateway (e.g., KrakenD) configuration to unders
 grep -B2 -A5 "http://back-service-name:3000" /path/to/krakend/krakend.stg.json
 ```
 
-Once the prefix is identified (e.g., `webform-read/`), search all frontend repos:
+Once the prefix is identified (e.g., `users-api/`), search all frontend repos:
 ```bash
 grep -r "endpointName" /path/to/frontend1 /path/to/frontend2
 ```
 Determine:
 - Is it called? (Yes/No)
-- Does the call use the correct gateway prefix? (`webform-read/main/...`)
+- Does the call use the correct gateway prefix? (`users-api/v1/...`)
 - Is the call active or commented out?
 
 **Decision matrix:**
 | FE Prefix | Gateway Prefix | Verdict |
 |-----------|--------------------|---------|
-| `webform-read/...` | `webform-read/...` | **Keep** — frontend hits this service |
-| `izin/...` | `webform-read/...` | **Remove** — frontend hits another service entirely |
-| `izin-read/...` | `webform-read/...` | **Remove** — frontend hits another service entirely |
+| `users-api/...` | `users-api/...` | **Keep** — frontend hits this service |
+| `orders-api/...` | `users-api/...` | **Remove** — frontend hits another service entirely |
+| `payments-api/...` | `users-api/...` | **Remove** — frontend hits another service entirely |
 | No match | any | **Audit** — confirm if service-to-service or truly dead |
 
 ### 1.3 Remove Dead Code
@@ -48,7 +48,7 @@ For confirmed dead endpoints:
 3. Remove model function from model file
 4. Verify syntax: `node -c path/to/file.js`
 
-> **⚠️ Caution:** Avoid one-shot script refactors on model files. The model returns may include extra keys alongside `data` (like `flag_rkl_rpl`, `keterangan`, `dataProyek`) that the frontend depends on. Always trace the full response shape before changing.
+> **⚠️ Caution:** Avoid one-shot script refactors on model files. The model returns may include extra keys alongside `data` (like custom metadata, pagination flags, computed fields) that the frontend depends on. Always trace the full response shape before changing.
 
 ---
 
@@ -66,14 +66,14 @@ exports.wrap = (fn) => {
       logger.error('Controller error', err);
       res.status(500).json({
         status: 500,
-        keterangan: err.message || 'Terjadi kesalahan sistem',
+        message: err.message || 'Internal server error',
       });
     });
   };
 };
 
 exports.sendSuccess = (res, data) => {
-  // Handle legacy model responses: { status: 200, data: [...], keterangan: "..." }
+  // Handle model responses that include their own status: { status: 200, data: [...] }
   if (data && typeof data === 'object' && data.status) {
     const statusCode = data.status;
     return res.status(statusCode).json(data);
@@ -82,7 +82,7 @@ exports.sendSuccess = (res, data) => {
   // Handle raw data
   return res.status(200).json({
     status: 200,
-    keterangan: 'Sukses',
+    message: 'Success',
     data,
   });
 };
@@ -187,7 +187,7 @@ Before refactoring any endpoint, ask:
 1. Is the frontend actually calling this? If no → **Remove**
 2. Is it called with a different prefix? If yes → **Remove** (belongs to another service)
 3. Does the refactor change the JSON response shape? If yes → **Stop** (verify frontend expectations first)
-4. Are there extra keys (`keterangan`, `flag_*`) alongside `data`? If yes → **Preserve** or test thoroughly
+4. Are there extra keys (metadata, flags) alongside `data`? If yes → **Preserve** or test thoroughly
 
 ---
 
