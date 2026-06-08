@@ -191,24 +191,28 @@ Before refactoring any endpoint, ask:
 
 ---
 
-## 6. Checklist Template for New Repos
+## 6. Housekeeping Audit Checklist
+*(For use with `audit-api`)*
 
 - [ ] **Inventory:** List all routes across all route files
-- [ ] **Audit:** Search all frontend repos for each endpoint name + prefix
-- [ ] **Cleanup:** Unused imports, unused variables, dead code, commented-out code, debug logs, duplicate code
-- [ ] **Formatting:** Formatter applied, linter passes, type check passes, naming consistent
-- [ ] **Dependencies & Config:** Unused deps removed, deprecated deps reviewed, unused config removed, sample env/docs updated
-- [ ] **Documentation:** Outdated comments removed, README/docs updated, TODO/FIXME reviewed
-- [ ] **Safety:** No business logic change, no API contract change, no DB schema change, no auth change, build and tests pass
-- [ ] **Refactor Scope:** Scope defined, affected modules listed, no unrelated changes
+- [ ] **Cross-reference:** Search all frontend repos for each endpoint name + prefix
+- [ ] **Remove dead endpoints:** Delete routes, controllers, and models for confirmed dead endpoints
+- [ ] **Cleanup check:** Verify no unused imports, unused variables, dead code, commented-out code, debug logs, or unsafe duplication
+- [ ] **Formatting check:** Confirm formatter applied, linter passes, type check passes, naming consistent
+- [ ] **Dependencies check:** Ensure no unused deps, deprecated deps reviewed, unused config removed, sample env/docs current
+- [ ] **Docs check:** Verify outdated comments removed, README/docs current, TODO/FIXME reviewed
+- [ ] **Safety check:** Confirm no business logic change, no API contract change, no DB schema change, no auth change
+- [ ] **Verify:** Build and tests pass
+
+## 7. Refactoring Checklist
+*(For use with `refactor-api`)*
+
+- [ ] **Scope:** Scope defined, affected modules listed, no unrelated feature changes
 - [ ] **Contract Safety:** Request/response structure, status codes, error format unchanged
-- [ ] **Business Logic Safety:** Logic, validation, permissions, DB, external services preserved
-- [ ] **Code Structure:** Clear responsibilities per layer, large functions split, module boundaries clear
-- [ ] **Testing:** Unit, integration, API, and regression tests pass
-- [ ] **Review:** Risk areas documented, rollback plan, CI/CD passes
-- [ ] **Remove:** Delete routes, controllers, and models for dead endpoints
-- [ ] **Standardize:** Create `utils/controllerHelper.js` and apply `wrap()` + `sendSuccess()` to all controllers
+- [ ] **Business Logic:** Logic, validation, permissions, DB behavior, external services preserved
+- [ ] **Code Structure:** Clear responsibilities per layer (controller/service/repository), large functions split, module boundaries clear
+- [ ] **Standardize error handling:** Create controller wrapper, apply `wrap()` + `sendSuccess()` to all handlers
 - [ ] **De-dup:** Consolidate duplicated query branches into dynamic builders
 - [ ] **Extract:** Create shared utilities for repeated patterns (Excel, CSV, pagination)
-- [ ] **Document:** Write/update `api_review.md` with endpoint-by-endpoint status
-- [ ] **Verify:** Run `node -c` on all modified files and run the test suite
+- [ ] **Testing:** Unit, integration, API, and regression tests pass
+- [ ] **Review:** Risk areas documented, rollback plan available, CI/CD passes

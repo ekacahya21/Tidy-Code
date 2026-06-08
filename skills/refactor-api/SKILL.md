@@ -20,9 +20,26 @@ go vet ./...                  # Go
 
 ---
 
-### 1. Standardize Controller Error Handling
+### 1. Remove Dead Code
 
-#### 1.1 Create a Controller Wrapper
+After an audit has confirmed which endpoints are dead, remove them in three layers:
+
+```
+1. Remove route/endpoint declaration   (route file / router config)
+2. Remove handler/controller function   (controller file)
+3. Remove data-access / model function  (model / DAL file)
+```
+
+**⚠️ Critical: Never change response shapes without verifying the consumer first.** Before removing any model/controller:
+- Trace the full response shape
+- Check for extra keys alongside `data` (e.g., metadata, flags, computed fields)
+- If the consumer depends on extra keys, preserve them
+
+---
+
+### 2. Standardize Controller Error Handling
+
+#### 2.1 Create a Controller Wrapper
 
 **Language-agnostic pattern:** Extract a reusable wrapper that:
 1. Catches all errors from handler functions
@@ -53,7 +70,7 @@ FUNCTION sendSuccess(response, data):
         })
 ```
 
-#### 1.2 Apply to All Controllers
+#### 2.2 Apply to All Controllers
 
 **Before — every handler has its own try/catch:**
 
@@ -78,7 +95,7 @@ HANDLER getData(request, response):
 router.get("/data/:id", wrap(getData))
 ```
 
-#### 1.3 Fix Models That Accept (request, response)
+#### 2.3 Fix Models That Accept (request, response)
 
 If a model function previously received both `request` and `response` and wrote directly to `response`, change it to **accept only request parameters and return the result**. Controllers should own the response.
 
@@ -101,9 +118,9 @@ FUNCTION legacyImport(request):
 
 ---
 
-### 2. Eliminate Duplicated Code
+### 3. Eliminate Duplicated Code
 
-#### 2.1 Combinatorial Conditionals
+#### 3.1 Combinatorial Conditionals
 
 Look for functions that write every permutation of N booleans as separate branches:
 
@@ -131,7 +148,7 @@ IF c THEN conditions.PUSH(condC)
 where = conditions.NOT_EMPTY ? buildConditions(conditions) : default
 ```
 
-#### 2.2 Runtime Verification
+#### 3.2 Runtime Verification
 
 After de-duplication, run the test suite and verify output:
 
@@ -151,7 +168,7 @@ mvn test                   # Java
 
 ---
 
-### 3. Extract Shared Utilities
+### 4. Extract Shared Utilities
 
 If the same output generation (Excel, CSV, PDF, JSON) or pagination logic appears in multiple controllers, extract it to a single shared module.
 
@@ -192,7 +209,7 @@ exporter.exportToExcel(response, "A", headers, data, "report.xlsx")
 
 ---
 
-### 4. Refactoring Checklist
+### 5. Refactoring Checklist
 
 Use this checklist before, during, and after every refactoring session to ensure nothing breaks.
 
@@ -238,14 +255,14 @@ Use this checklist before, during, and after every refactoring session to ensure
 
 Use this skill after an `audit-api` pass to clean up the code that remains. The typical flow is:
 
-1. **audit-api** → Inventory, cross-reference, remove dead endpoints
+1. **audit-api** → Inventory, cross-reference, flag dead endpoints
 2. **refactor-api** → Standardize error handling, de-dup, extract shared modules
 
 During a normal development cycle, this skill can be used as a PR review checkpoint to verify that new code follows best practices before merging.
 
 ## Gotchas
 
-- **Response shape changes are invisible to you but break the frontend.** A model that returns `{ status, data, flag_rkl_rpl, keterangan }` has extra keys the frontend depends on. Changing to just `{ status, data }` breaks them. Always verify.
+- **Response shape changes are invisible to you but break the frontend.** A model that returns `{ status, data, metadata, flags }` has extra keys the frontend depends on. Changing to just `{ status, data }` breaks them. Always verify.
 - **Don't run one-shot search-replace on model files.** The model layer accumulates the most tacit knowledge about response shapes. Trace each one manually.
 
 ## Troubleshooting

@@ -3,7 +3,7 @@ name: audit-api
 description: Use when you need to audit an API service to find dead code, inventory endpoints, or cross-reference usage with consumer applications. Applies to any language/framework.
 ---
 
-# API Auditing & Dead Code Removal
+# API Auditing & Inventory
 
 A reusable, language-agnostic checklist to audit and inventory a backend API or microservice. Drive the audit via `driver.sh` (available on `$PATH`) and follow the patterns below.
 
@@ -85,15 +85,17 @@ done
 | No match found | any | **Audit** — check for service-to-service calls |
 | Not found anywhere | Not found | **Remove** — truly dead |
 
-#### 1.3 Remove Dead Code
+#### 1.3 Flag Dead Code for Removal
 
-For each confirmed dead endpoint, remove in three layers:
+For each confirmed dead endpoint, document what should be removed across three layers:
 
 ```
-1. Remove route/endpoint declaration   (route file / router config)
-2. Remove handler/controller function   (controller file)
-3. Remove data-access / model function  (model / DAL file)
+1. Route/endpoint declaration   (route file / router config)
+2. Handler/controller function   (controller file)
+3. Data-access / model function  (model / DAL file)
 ```
+
+> **🔄** Pass the flagged endpoints to the `refactor-api` skill to perform the actual removal.
 
 **⚠️ Critical: Never change response shapes without verifying the consumer first.** Before removing or refactoring any model/controller:
 - Trace the full response shape
@@ -115,36 +117,38 @@ Before touching any endpoint, ask these questions **in order**:
 
 ### 3. Housekeeping Checklist
 
+> This checklist is about **detecting** issues, not fixing them. Mark items as done once you've verified the codebase is clean in each area. Escalate identified issues to the `refactor-api` skill for resolution.
+
 #### Cleanup
-- [ ] Unused imports removed
-- [ ] Unused variables removed
-- [ ] Dead code removed
-- [ ] Commented-out code removed
-- [ ] Debug logs removed
-- [ ] Duplicate code cleaned where safe
+- [ ] No unused imports detected
+- [ ] No unused variables detected
+- [ ] No dead code detected
+- [ ] No commented-out code detected
+- [ ] No debug logs detected
+- [ ] No unsafe duplicated code detected
 
 #### Formatting
-- [ ] Formatter applied
-- [ ] Linter passes
+- [ ] Formatter has been applied
+- [ ] Linter passes cleanly
 - [ ] Type check passes
 - [ ] Naming is consistent
 
 #### Dependencies & Config
-- [ ] Unused dependencies removed
-- [ ] Deprecated dependencies reviewed
-- [ ] Unused config removed
-- [ ] Sample env/docs updated if needed
+- [ ] No unused dependencies found
+- [ ] No deprecated dependencies found
+- [ ] No unused configuration found
+- [ ] Sample env/docs are current
 
 #### Documentation
-- [ ] Outdated comments removed
-- [ ] README/docs updated if needed
-- [ ] TODO/FIXME comments reviewed
+- [ ] No outdated comments found
+- [ ] README/docs are current
+- [ ] TODO/FIXME comments have been reviewed
 
 #### Safety
-- [ ] No business logic change
-- [ ] No API contract change
-- [ ] No database schema change
-- [ ] No authentication/authorization behavior change
+- [ ] No business logic change introduced
+- [ ] No API contract change introduced
+- [ ] No database schema change introduced
+- [ ] No authentication/authorization behavior change introduced
 - [ ] Build and tests pass
 
 > **🔄 Circular reference:** Cleanup items can be escalated to the `refactor-api` skill for implementation. Safety items must be verified before any merge.
@@ -178,7 +182,7 @@ Create `api_review.md` in the repo root to track endpoint-by-endpoint status:
 
 ## Gotchas
 
-- **Response shape changes are invisible to you but break the frontend.** A model that returns `{ status, data, flag_rkl_rpl, keterangan }` has extra keys the frontend depends on. Changing to just `{ status, data }` breaks them. Always verify.
+- **Response shape changes are invisible to you but break the frontend.** A model that returns `{ status, data, metadata, flags }` has extra keys the frontend depends on. Changing to just `{ status, data }` breaks them. Always verify.
 - **"Remove dead endpoints" means removing 3 layers** — route, controller, model. Miss one and the code lingers.
 - **API gateway prefix matters.** An endpoint at `/users/export` that the frontend calls as `legacy-api/users/export` but the gateway routes `prefix/users/export` to this service — the frontend endpoint IS dead even though the code path exists.
 
