@@ -16,13 +16,13 @@ Extensible by design — the same patterns can be applied to frontend codebases 
 You can install this repository directly as a Claude Code plugin:
 
 ```shell
-/plugin install tidy-code@https://github.com/ekacahya21/Legacy-Housekeeping.git
+/plugin install tidy-code@https://github.com/ekacahya21/Tidy-Code.git
 ```
 
 Alternatively, you can register it as a marketplace:
 
 ```shell
-/plugin marketplace add https://github.com/ekacahya21/Legacy-Housekeeping.git
+/plugin marketplace add https://github.com/ekacahya21/Tidy-Code.git
 /plugin install tidy-code@tidy-code-marketplace
 ```
 

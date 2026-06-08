@@ -1,5 +1,5 @@
 {
   "enabledPlugins": {
-    "legacy-housekeeping@legacy-housekeeping-marketplace": true
+    "tidy-code@tidy-code-marketplace": true
   }
 }
