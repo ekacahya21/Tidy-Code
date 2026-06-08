@@ -192,6 +192,48 @@ exporter.exportToExcel(response, "A", headers, data, "report.xlsx")
 
 ---
 
+### 4. Refactoring Checklist
+
+Use this checklist before, during, and after every refactoring session to ensure nothing breaks.
+
+#### Scope
+- [ ] Refactor scope is clearly defined
+- [ ] Affected endpoints/modules are listed
+- [ ] No unrelated feature changes included
+
+#### Contract Safety
+- [ ] Request structure is unchanged
+- [ ] Response structure is unchanged
+- [ ] Status codes are unchanged
+- [ ] Error format is unchanged
+
+#### Business Logic Safety
+- [ ] Business logic is preserved
+- [ ] Validation rules are preserved
+- [ ] Permission checks are preserved
+- [ ] Database behavior is preserved
+- [ ] External service behavior is preserved
+
+#### Code Structure
+- [ ] Controller responsibilities are clear
+- [ ] Service/use case responsibilities are clear
+- [ ] Repository/model responsibilities are clear
+- [ ] Large functions are split where appropriate
+- [ ] Module boundaries are clear
+
+#### Testing
+- [ ] Unit tests pass
+- [ ] Integration tests pass
+- [ ] API tests pass
+- [ ] Regression scenarios are tested
+
+#### Review
+- [ ] Risk areas are documented
+- [ ] Rollback plan is available
+- [ ] CI/CD passes
+
+---
+
 ## Integration with audit-api
 
 Use this skill after an `audit-api` pass to clean up the code that remains. The typical flow is:

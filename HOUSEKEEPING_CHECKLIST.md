@@ -200,6 +200,12 @@ Before refactoring any endpoint, ask:
 - [ ] **Dependencies & Config:** Unused deps removed, deprecated deps reviewed, unused config removed, sample env/docs updated
 - [ ] **Documentation:** Outdated comments removed, README/docs updated, TODO/FIXME reviewed
 - [ ] **Safety:** No business logic change, no API contract change, no DB schema change, no auth change, build and tests pass
+- [ ] **Refactor Scope:** Scope defined, affected modules listed, no unrelated changes
+- [ ] **Contract Safety:** Request/response structure, status codes, error format unchanged
+- [ ] **Business Logic Safety:** Logic, validation, permissions, DB, external services preserved
+- [ ] **Code Structure:** Clear responsibilities per layer, large functions split, module boundaries clear
+- [ ] **Testing:** Unit, integration, API, and regression tests pass
+- [ ] **Review:** Risk areas documented, rollback plan, CI/CD passes
 - [ ] **Remove:** Delete routes, controllers, and models for dead endpoints
 - [ ] **Standardize:** Create `utils/controllerHelper.js` and apply `wrap()` + `sendSuccess()` to all controllers
 - [ ] **De-dup:** Consolidate duplicated query branches into dynamic builders
