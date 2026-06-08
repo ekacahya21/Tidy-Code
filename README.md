@@ -6,7 +6,6 @@ Extensible by design — the same patterns can be applied to frontend codebases 
 
 ## Contents
 
-* `TIDY_SKILL_GUIDE.md` - The original Node.js specific checklist that started it all.
 * `skills/audit-api/SKILL.md` - Skill for auditing codebases, finding dead code, and analyzing endpoint usage.
 * `skills/refactor-api/SKILL.md` - Skill for cleaning code, standardizing error handling, and eliminating duplication.
 * `bin/driver.sh` - An executable CLI tool to automatically inventory endpoints, check usages against frontend code, identify leaking HTTP concerns in your model layer, and more (supports JS/TS, Python, Java, Go, Ruby).
