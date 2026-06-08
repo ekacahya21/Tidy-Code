@@ -195,6 +195,9 @@ Before refactoring any endpoint, ask:
 
 - [ ] **Inventory:** List all routes across all route files
 - [ ] **Audit:** Search all frontend repos for each endpoint name + prefix
+- [ ] **High Priority Audit:** Clean dead code, unused imports, unused variables, duplicated logic, commented-out code, lint/formatting, error handling, logging, config/env usage, dependency security
+- [ ] **Medium Priority Audit:** Rename unclear variables/functions, split large functions, reorganize folder structure, update README/internal docs, standardize response helpers, standard validation pattern, standard repository/service pattern
+- [ ] **Low Priority Audit:** Upgrade major package versions, change ORM structure, change framework architecture, rewrite module boundaries, change API versioning, replace logging library
 - [ ] **Remove:** Delete routes, controllers, and models for dead endpoints
 - [ ] **Standardize:** Create `utils/controllerHelper.js` and apply `wrap()` + `sendSuccess()` to all controllers
 - [ ] **De-dup:** Consolidate duplicated query branches into dynamic builders
