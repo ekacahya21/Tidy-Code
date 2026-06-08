@@ -113,49 +113,41 @@ Before touching any endpoint, ask these questions **in order**:
 
 ---
 
-### 3. General Code Health Audit
+### 3. Housekeeping Checklist
 
-Beyond endpoint dead code, audit the broader codebase for hygiene issues organized by priority.
+#### Cleanup
+- [ ] Unused imports removed
+- [ ] Unused variables removed
+- [ ] Dead code removed
+- [ ] Commented-out code removed
+- [ ] Debug logs removed
+- [ ] Duplicate code cleaned where safe
 
-#### 🔴 High Priority
+#### Formatting
+- [ ] Formatter applied
+- [ ] Linter passes
+- [ ] Type check passes
+- [ ] Naming is consistent
 
-Items with high impact — address these first:
+#### Dependencies & Config
+- [ ] Unused dependencies removed
+- [ ] Deprecated dependencies reviewed
+- [ ] Unused config removed
+- [ ] Sample env/docs updated if needed
 
-- [ ] **Remove dead code**: Delete functions, modules, and conditionals that are never reached
-- [ ] **Remove unused imports**: Strip out unused dependencies and import statements
-- [ ] **Remove unused variables**: Delete declared but never-used variables and parameters
-- [ ] **Remove duplicated logic**: Consolidate repeated code blocks into shared functions
-- [ ] **Remove commented-out code**: Delete blocks left as comments — git history preserves them
-- [ ] **Fix lint and formatting**: Run linter and auto-formatter across the codebase
-- [ ] **Clean error handling**: Eliminate bare catches, unhandled rejections, and silent failures
-- [ ] **Clean logging**: Remove debug/console.log noise, standardize structured logging
-- [ ] **Clean config and env usage**: Centralize scattered config, validate env vars at startup
-- [ ] **Check dependency security**: Run `npm audit`, `pip-audit`, or equivalent for known vulnerabilities
+#### Documentation
+- [ ] Outdated comments removed
+- [ ] README/docs updated if needed
+- [ ] TODO/FIXME comments reviewed
 
-#### 🟡 Medium Priority
+#### Safety
+- [ ] No business logic change
+- [ ] No API contract change
+- [ ] No database schema change
+- [ ] No authentication/authorization behavior change
+- [ ] Build and tests pass
 
-Structural improvements that reduce friction in daily development:
-
-- [ ] **Rename unclear variables/functions**: Replace single-letter names and jargon with descriptive names
-- [ ] **Split large functions**: Break god functions into focused, testable units
-- [ ] **Reorganize folder structure**: Align directory layout with the domain boundaries
-- [ ] **Update README/internal docs**: Keep setup, architecture, and API documentation current
-- [ ] **Standardize response helpers**: Unify how controllers return success/error responses
-- [ ] **Standardize validation pattern**: Adopt a consistent input validation approach across all endpoints
-- [ ] **Standardize repository/service pattern**: Ensure data-access and business-logic layers follow a consistent contract
-
-#### 🟢 Low Priority
-
-Larger-scale changes that require careful planning and full regression testing:
-
-- [ ] **Upgrade major package versions**: Bump major dependency versions (framework, database driver, etc.)
-- [ ] **Change ORM structure**: Migrate to a different data-access approach or ORM version
-- [ ] **Change framework architecture**: Adopt a new framework version or architectural pattern
-- [ ] **Rewrite module boundaries**: Re-align module responsibilities after the domain has been understood
-- [ ] **Change API versioning**: Adopt a new API versioning strategy
-- [ ] **Replace logging library**: Switch logging libraries after evaluating alternatives
-
-> **🔄 Circular reference:** Items above the dashed line can be escalated to the `refactor-api` skill for implementation. Items below involve structural changes best managed as separate initiatives.
+> **🔄 Circular reference:** Cleanup items can be escalated to the `refactor-api` skill for implementation. Safety items must be verified before any merge.
 
 ---
 
