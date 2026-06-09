@@ -6,9 +6,12 @@ Extensible by design — the same patterns can be applied to frontend codebases 
 
 ## Contents
 
-* `skills/audit-api/SKILL.md` - Skill for auditing codebases, finding dead code, and analyzing endpoint usage.
-* `skills/refactor-api/SKILL.md` - Skill for cleaning code, standardizing error handling, and eliminating duplication.
-* `skills/testing-api/SKILL.md` - Skill to create, complete, and execute unit/integration tests following Test-Driven Development (TDD).
+* `skills/audit-api/SKILL.md` - Skill for auditing backend APIs, finding dead code, and analyzing endpoint usage.
+* `skills/refactor-api/SKILL.md` - Skill for cleaning backend code, standardizing error handling, and eliminating duplication.
+* `skills/testing-api/SKILL.md` - Skill to create, complete, and execute backend tests following TDD.
+* `skills/audit-ui/SKILL.md` - Skill for auditing frontend codebases, finding unexposed routes, orphan components, and unused assets.
+* `skills/refactor-ui/SKILL.md` - Skill for cleaning frontend code, decoupling presentation from logic, and standardizing styles.
+* `skills/testing-ui/SKILL.md` - Skill to create, complete, and execute frontend unit/component tests following TDD.
 * `bin/driver.sh` - An executable CLI tool to automatically inventory endpoints, check usages against frontend code, identify leaking HTTP concerns in your model layer, and more (supports JS/TS, Python, Java, Go, Ruby).
 
 ## Installation
@@ -34,6 +37,9 @@ Once installed, the skills become available. You can run them inside any reposit
 /tidy-code:audit-api
 /tidy-code:refactor-api
 /tidy-code:testing-api
+/tidy-code:audit-ui
+/tidy-code:refactor-ui
+/tidy-code:testing-ui
 ```
 
 Or simply ask Claude Code: 
@@ -48,4 +54,6 @@ Or simply ask Claude Code:
 - **De-duplication** (`refactor-api`): Strategy for consolidating combinatorial conditional queries.
 - **Unit Testing** (`testing-api`): Create, complete, and execute unit tests following TDD principles. Includes mocking and coverage compliance.
 - **Utility Extraction** (`refactor-api`): Identifies and extracts repeated outputs (e.g. Excel export) to shared libraries.
-- **Model decoupling** (`refactor-api`): Helps identify models that accept `(req, res)` directly, decoupling them to return data so controllers can own the HTTP response lifecycle.
+- **Frontend Audit** (`audit-ui`): Find unexposed routes, orphan components, and unused assets in frontend codebases.
+- **Frontend Refactor** (`refactor-ui`): Decouple logic from components, extract reusable UI components, and standardize styling.
+- **Frontend Testing** (`testing-ui`): Create, complete, and execute unit, component, and E2E tests for frontend codebases.
